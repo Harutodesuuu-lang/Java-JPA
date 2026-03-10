@@ -1,0 +1,30 @@
+#spring.application.name=fswd-sbapp
+#server.port=8090
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: true
+  application:
+    name: fswd-sbapp
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:postgresql://localhost:5432/database
+    username: postgres
+    driver-class-name: org.postgresql.Driver
+    password: "0000"
+
+server:
+  servlet:
+    context-path: /sui
+springdoc:
+  open-api:
+    info:
+      title: Ronaldo API
+      version: 10.0.0
