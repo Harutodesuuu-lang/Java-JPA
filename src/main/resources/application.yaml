@@ -1,0 +1,11 @@
+#spring.application.name=fswd-sbapp
+#server.port=8090
+
+spring:
+  application:
+    name: fswd-sbapp
+  profiles:
+    active: prod
+server:
+  servlet:
+    context-path: /sui
