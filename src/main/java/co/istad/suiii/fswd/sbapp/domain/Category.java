@@ -13,11 +13,21 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class Category {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //identity is auto increment
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(name = "name", nullable = false, unique = true, length = 50)
     private String name;
-@OneToMany(mappedBy = "category")
+
+    @Column(nullable = false)
+    private Boolean isDeleted;
+
+    // Relationship here
+    // MappedBy, tells hibernate category relationship
+    // already establish in product entity
+    @OneToMany(mappedBy = "category")
     private List<Product> products;
 
 }

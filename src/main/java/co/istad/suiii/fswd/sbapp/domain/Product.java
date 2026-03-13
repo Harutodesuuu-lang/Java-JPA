@@ -5,26 +5,39 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.List;
 
-@Setter
-@Getter
-@NoArgsConstructor
 @Entity
 @Table(name = "products")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Product {
-  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private String description;
-    private Double price;
-    private String image;
 
+    @Id
+    private String code;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private BigDecimal price;
+
+    @Column(nullable = false)
+    private Integer qty;
+
+    // Default length = 255
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
+    @Column(nullable = false)
+    private Boolean isAvailable;
+
+    // Relationship here
     @ManyToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
-    @ManyToMany(mappedBy = "products", cascade = CascadeType.ALL)
-    private List<Order> orders ;
-
+    @OneToMany(mappedBy = "product" )
+    private List<OrderDetail> orderDetails;
 }

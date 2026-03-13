@@ -5,33 +5,33 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.Instant;
-import java.util.List;
+import java.math.BigDecimal;
 import java.util.UUID;
 
-// Make POJO (Plain Old Java Object)
 @Getter
 @Setter
 @NoArgsConstructor
-// Make JPA Entity
 @Entity
-@Table(name = "orders")
-public class Order {
+@Table(name = "order_details")
+public class OrderDetail {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private String address;
+    @Column(nullable = false)
+    private Integer qty;
 
     @Column(nullable = false)
-    private String orderedBy;
+    private BigDecimal unitPrice;
 
     @Column(nullable = false)
-    private Instant orderedAt;
+    private Float discount;
 
-    @Column(nullable = false)
-    private Boolean isDeleted;
+    @ManyToOne
+    private Product product;
 
-    @OneToMany(mappedBy = "order")
-    private List<OrderDetail> orderDetail;
+    @ManyToOne
+    private Order order;
+
 }
