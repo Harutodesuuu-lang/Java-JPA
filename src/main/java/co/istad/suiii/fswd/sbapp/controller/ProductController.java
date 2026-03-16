@@ -4,7 +4,9 @@ import co.istad.suiii.fswd.sbapp.dto.CreateProductRequest;
 import co.istad.suiii.fswd.sbapp.dto.ProductResponse;
 import co.istad.suiii.fswd.sbapp.dto.UpdateProductRequest;
 import co.istad.suiii.fswd.sbapp.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,11 +29,20 @@ public class ProductController {
         return List.of();
     }
 
+    @GetMapping("/{code}")
+    public ProductResponse getProductByCode(@PathVariable String code) {
+        log.info("getProductByCode: {}", code);
+
+        return productService.getProductByCode(code);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public ProductResponse createProduct(@RequestBody CreateProductRequest createProductRequest) {
+    public ProductResponse createProduct(
+            @Valid @RequestBody CreateProductRequest createProductRequest) {
         log.info("createProductRequest: {}", createProductRequest);
-        productService.createProduct(createProductRequest);
-        return null;
+
+        return productService.createProduct(createProductRequest);
     }
 
     @PutMapping("/{code}")

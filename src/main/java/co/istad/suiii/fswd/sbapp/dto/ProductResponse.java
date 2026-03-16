@@ -1,11 +1,20 @@
 package co.istad.suiii.fswd.sbapp.dto;
 
+import lombok.Builder;
+
 import java.math.BigDecimal;
 
+
+
+
+@Builder
 public record ProductResponse(
         String code,
         String name,
-        BigDecimal price
+        String qty,
+        BigDecimal price,
+        Boolean isAvailable,
+        String description
 
 
 ) {

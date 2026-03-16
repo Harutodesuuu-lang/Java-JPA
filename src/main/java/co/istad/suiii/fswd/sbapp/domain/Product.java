@@ -25,7 +25,7 @@ public class Product {
     private BigDecimal price;
 
     @Column(nullable = false)
-    private Integer qty;
+    private String qty;
 
     // Default length = 255
     @Column(columnDefinition = "TEXT")
