@@ -8,7 +8,7 @@ public class ProductSpecification {
     public static Specification<Product> nameContains(String name) {
         return (root, query, cb) -> {
             if (name == null) {
-                return cb.conjunction(); // ✅ NOT null
+                return cb.conjunction();
             }
             return cb.like(cb.lower(root.get("name")), "%" + name.toLowerCase() + "%");
         };
@@ -16,7 +16,7 @@ public class ProductSpecification {
     public static Specification<Product> priceFilter(String price) {
 
         if (price == null) {
-            return (root, query, cb) -> cb.conjunction(); // ✅ FIX
+            return (root, query, cb) -> cb.conjunction();
         }
 
         if (price.startsWith("+")) {
@@ -29,13 +29,13 @@ public class ProductSpecification {
                     cb.lessThanOrEqualTo(root.get("price"), value);
         }
 
-        return (root, query, cb) -> cb.conjunction(); // ✅ FIX
+        return (root, query, cb) -> cb.conjunction();
     }
 
     public static Specification<Product> qtyFilter(String qty) {
 
         if (qty == null) {
-            return (root, query, cb) -> cb.conjunction(); // ✅ FIX
+            return (root, query, cb) -> cb.conjunction();
         }
 
         if (qty.startsWith("+")) {
@@ -48,6 +48,6 @@ public class ProductSpecification {
                     cb.lessThanOrEqualTo(root.get("qty"), value);
         }
 
-        return (root, query, cb) -> cb.conjunction(); // ✅ FIX
+        return (root, query, cb) -> cb.conjunction();
     }
 }
