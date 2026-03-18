@@ -2,6 +2,7 @@ package co.istad.suiii.fswd.sbapp.controller;
 
 import co.istad.suiii.fswd.sbapp.dto.CreateProductRequest;
 import co.istad.suiii.fswd.sbapp.dto.ProductResponse;
+import co.istad.suiii.fswd.sbapp.dto.UpdateIsAvailableRequest;
 import co.istad.suiii.fswd.sbapp.dto.UpdateProductRequest;
 import co.istad.suiii.fswd.sbapp.service.ProductService;
 import jakarta.validation.Valid;
@@ -47,12 +48,12 @@ public class ProductController {
     }
 
     @PutMapping("/{code}")
-    public ProductResponse updateIsAvaliableByCode(
+    public ProductResponse updateIsAvailableByCode(
             @PathVariable String code,
-            @RequestBody UpdateProductRequest updateProductRequest) {
-        log.info("updateProductByCode: {}", updateProductRequest);
+            @Valid @RequestBody UpdateIsAvailableRequest updateIsAvailableRequest) {
+        log.info("updateIsAvailableByCode: {}", updateIsAvailableRequest);
 
-        return null;
+        return productService.updateIsAvailable(code, updateIsAvailableRequest);
     }
 
     @PatchMapping("/{code}")

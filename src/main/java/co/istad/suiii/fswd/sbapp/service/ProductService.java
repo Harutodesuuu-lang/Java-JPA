@@ -1,17 +1,15 @@
 package co.istad.suiii.fswd.sbapp.service;
 
 import co.istad.suiii.fswd.sbapp.domain.Product;
-import co.istad.suiii.fswd.sbapp.dto.CreateProductRequest;
-import co.istad.suiii.fswd.sbapp.dto.DataResponse;
-import co.istad.suiii.fswd.sbapp.dto.ProductResponse;
-import co.istad.suiii.fswd.sbapp.dto.UpdateProductRequest;
+import co.istad.suiii.fswd.sbapp.dto.*;
 import org.springframework.data.domain.Page;
 import org.springframework.web.server.ResponseStatusException;
 
 public interface ProductService {
     void deleteProduct(String code);
 
-//    Product updateIsAvailableByCode(String code, UpdateProductRequest updateProductRequest);
+    ProductResponse updateIsAvailable(String code, UpdateIsAvailableRequest updateIsAvailableRequest);
+
 
 
     Page<ProductResponse> getAllProducts(int pageNumber, int pageSize);

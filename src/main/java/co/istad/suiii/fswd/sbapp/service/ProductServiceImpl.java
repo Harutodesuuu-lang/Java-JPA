@@ -4,10 +4,7 @@ import co.istad.suiii.fswd.sbapp.Util.DataGenerateUtil;
 import co.istad.suiii.fswd.sbapp.Util.ProductSpecification;
 import co.istad.suiii.fswd.sbapp.domain.Category;
 import co.istad.suiii.fswd.sbapp.domain.Product;
-import co.istad.suiii.fswd.sbapp.dto.CreateProductRequest;
-import co.istad.suiii.fswd.sbapp.dto.DataResponse;
-import co.istad.suiii.fswd.sbapp.dto.ProductResponse;
-import co.istad.suiii.fswd.sbapp.dto.UpdateProductRequest;
+import co.istad.suiii.fswd.sbapp.dto.*;
 import co.istad.suiii.fswd.sbapp.mapper.ProductMapper;
 import co.istad.suiii.fswd.sbapp.repository.CategoryRepository;
 import co.istad.suiii.fswd.sbapp.repository.ProductRepository;
@@ -45,6 +42,19 @@ public class ProductServiceImpl implements ProductService {
         productRepository.delete(product);
     }
 
+    @Override
+    public ProductResponse updateIsAvailable(String code, UpdateIsAvailableRequest updateIsAvailableRequest) {
+       log.info("UpdateIsAvailable: {} and new data {}", code, updateIsAvailableRequest);
+        Product product = productRepository.findById(code)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Product not found "));
+
+        product.setIsAvailable(updateIsAvailableRequest.isAvailable());
+
+        return productMapper.productToProductResponse(productRepository.save(product));
+    }
+
 
     @Override
     public Page<ProductResponse> getAllProducts(int pageNumber, int pageSize) {
@@ -52,7 +62,7 @@ public class ProductServiceImpl implements ProductService {
         //1. setup page request
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         //2. Find data from database with page request
-        Page<Product> productResponsePage = productRepository.findAll(pageable);
+        Page<Product> productResponsePage = productRepository.findByIsAvailableTrue(pageable);
 
         return productResponsePage.map(productMapper::productToProductResponse);
     }
@@ -93,19 +103,6 @@ public class ProductServiceImpl implements ProductService {
         return productMapper.productToProductResponse(product);
     }
 
-//    @Override
-//    public Product updateIsAvailableByCode(String code, UpdateProductRequest updateProductRequest) {
-//        //1. Validate product code exist or not
-//        Product product = productRepository.findById(code)
-//                .orElseThrow(() -> new ResponseStatusException(
-//                        HttpStatus.NOT_FOUND,
-//                        "Product not found "));
-//        //2. Write logic
-//        productMapper.updateIsAvailableByCode(updateProductRequest, product);
-//
-//        product = productRepository.save(product);
-//        return productMapper.productToProductResponse(product);
-//    }
 
 
     @Override
