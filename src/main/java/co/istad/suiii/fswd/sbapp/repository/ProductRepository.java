@@ -12,4 +12,5 @@ public interface ProductRepository extends JpaRepository<Product,String>, JpaSpe
     Product findByCode(String code);
 
     Page<Product> findByIsAvailableTrue(Pageable pageable);
+
 }

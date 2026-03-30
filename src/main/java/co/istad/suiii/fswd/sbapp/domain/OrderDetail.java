@@ -1,10 +1,12 @@
 package co.istad.suiii.fswd.sbapp.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import jakarta.persistence.Transient;
 import java.math.BigDecimal;
 import java.util.UUID;
 
@@ -32,6 +34,11 @@ public class OrderDetail {
     private Product product;
 
     @ManyToOne
+    @JsonBackReference
     private Order order;
+
+
+    @Transient
+    private String productCode;
 
 }

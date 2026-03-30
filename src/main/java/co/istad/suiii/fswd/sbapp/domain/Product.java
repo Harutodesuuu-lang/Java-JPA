@@ -1,5 +1,7 @@
 package co.istad.suiii.fswd.sbapp.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,9 +37,11 @@ public class Product {
     private Boolean isAvailable;
 
     // Relationship here
+    @JsonIgnoreProperties("products")
     @ManyToOne
     private Category category;
 
     @OneToMany(mappedBy = "product" )
+    @JsonIgnore
     private List<OrderDetail> orderDetails;
 }

@@ -1,5 +1,6 @@
 package co.istad.suiii.fswd.sbapp.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,7 @@ public class Category {
     // MappedBy, tells hibernate category relationship
     // already establish in product entity
     @OneToMany(mappedBy = "category")
+    @JsonIgnore
     private List<Product> products;
 
 }
